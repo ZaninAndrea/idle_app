@@ -1,8 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+html,
+body,
+pre,
+code,
+kbd,
+span,
+samp {
+    font-family: "Press Start 2P", cursive;
+    line-height: 18px;
+}
+
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-        "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
@@ -46,4 +56,67 @@ code {
 .loginDataBox {
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
+}
+
+.main {
+    max-width: 1000px;
+    min-height: 100vh;
+    margin: auto 0;
+}
+
+.resources {
+    display: grid;
+    grid-template-columns: auto 16px auto;
+    grid-template-areas: "money . city";
+    margin-bottom: 16px;
+}
+.resources-money {
+    grid-area: money;
+    text-align: left;
+}
+.resources-city {
+    text-align: right;
+    grid-area: city;
+}
+
+.buildings div {
+    margin-bottom: 16px;
+}
+
+progress {
+    margin: 10px 0 !important;
+    box-sizing: border-box !important;
+}
+
+.level-tag,
+.upgrade-tag {
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.powerUp {
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.powerUp-name {
+    margin: 0 !important;
+}
+
+.level {
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+}
+progress[value].animated::-webkit-progress-value {
+    transition: width 0.2s;
+}
+
+.prestige {
+    width: 100%;
+    text-align: center;
 }

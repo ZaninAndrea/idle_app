@@ -1,7 +1,9 @@
 import "./App.css"
+import "./nes.css"
 import CloudComponent from "./CloudComponent"
 import LoginGuard from "./LoginGuard"
 import { Building, buildings } from "./buildings"
+import cities from "./cities"
 import BuildingDisplay from "./BuildingDisplay"
 
 class App extends CloudComponent {
@@ -19,7 +21,8 @@ class App extends CloudComponent {
             const { moneyDiff, thumbsUpDiff } =
                 this.gameState.buildings[i].update()
 
-            this.gameState.money += moneyDiff
+            this.gameState.money +=
+                moneyDiff * cities[this.gameState.city].multiplier
             this.gameState.thumbsUp += thumbsUpDiff
         }
 
@@ -31,7 +34,12 @@ class App extends CloudComponent {
     }
 
     syncOnline = () => {
-        this.setState(({ game }) => ({ cloud: { ...game } }))
+        this.setState(({ game }) => ({
+            cloud: {
+                ...game,
+                buildings: game.buildings.map((building) => building.toJSON()),
+            },
+        }))
     }
 
     componentWillUnmount = () => {
@@ -46,7 +54,47 @@ class App extends CloudComponent {
             game: {
                 ...this.gameState,
             },
-            cloud: { ...this.gameState },
+            cloud: {
+                ...this.gameState,
+                buildings: this.gameState.buildings.map((building) =>
+                    building.toJSON()
+                ),
+            },
+        })
+    }
+
+    unlockPowerUp = (buildingIdx, powerUpIdx) => {
+        this.gameState.money -=
+            this.gameState.buildings[buildingIdx].unlockPowerUp(powerUpIdx)
+
+        this.setState({
+            game: {
+                ...this.gameState,
+            },
+            cloud: {
+                ...this.gameState,
+                buildings: this.gameState.buildings.map((building) =>
+                    building.toJSON()
+                ),
+            },
+        })
+    }
+
+    moveToNextCity = () => {
+        this.gameState.money = 0
+        this.gameState.buildings = buildings
+        this.gameState.city++
+
+        this.setState({
+            game: {
+                ...this.gameState,
+            },
+            cloud: {
+                ...this.gameState,
+                buildings: this.gameState.buildings.map((building) =>
+                    building.toJSON()
+                ),
+            },
         })
     }
 
@@ -55,13 +103,15 @@ class App extends CloudComponent {
             return ""
         }
 
-        if (this.state.cloud.money === undefined) {
+        const hardReset = false
+        if (this.state.cloud.money === undefined || hardReset) {
             console.log("Override cloud state")
             this.setState({
                 cloud: {
+                    city: 0,
                     money: 0,
                     thumbsUp: 0,
-                    buildings: buildings,
+                    buildings: buildings.map((building) => building.toJSON()),
                 },
             })
             return ""
@@ -87,17 +137,59 @@ class App extends CloudComponent {
         }
 
         return (
-            <div style={{ fontSize: "18px", padding: "8px", margin: "auto" }}>
-                <p>Money: {this.state.game.money}</p>
-                <p>Thumbs Up: {this.state.game.thumbsUp}</p>
-                {this.state.game.buildings.map((building, idx) => (
-                    <BuildingDisplay
-                        building={building}
-                        buildingId={idx}
-                        money={this.state.game.money}
-                        upgrade={() => this.upgradeBuilding(idx)}
-                    />
-                ))}
+            <div
+                className="main"
+                style={{ fontSize: "18px", padding: "8px", margin: "auto" }}
+            >
+                <div className="resources">
+                    <div className="resources-money">
+                        <span className="nes-text is-warning">
+                            Coins: {Math.floor(this.state.game.money)}
+                        </span>
+                    </div>
+                    <div className="resources-city">
+                        <span className="nes-text">
+                            {cities[this.state.game.city].name}
+                        </span>
+                    </div>
+                </div>
+                <div className="buildings">
+                    {this.state.game.buildings.map(
+                        (building, idx) =>
+                            (building.level > 0 ||
+                                this.state.game.buildings[idx - 1].level >
+                                    0) && (
+                                <BuildingDisplay
+                                    building={building}
+                                    buildingId={idx}
+                                    money={this.state.game.money}
+                                    upgradeBuilding={() =>
+                                        this.upgradeBuilding(idx)
+                                    }
+                                    unlockPowerUp={(powerUpIdx) =>
+                                        this.unlockPowerUp(idx, powerUpIdx)
+                                    }
+                                />
+                            )
+                    )}
+                </div>
+                <div className="prestige">
+                    {cities.length > this.state.game.city + 1 &&
+                    cities[this.state.game.city + 1].cost <=
+                        this.state.game.money ? (
+                        <button
+                            onClick={this.moveToNextCity}
+                            class={
+                                "nes-btn is-small is-success prestige-button"
+                            }
+                        >
+                            Sell everything and move to{" "}
+                            {cities[this.state.game.city + 1].name}
+                        </button>
+                    ) : (
+                        ""
+                    )}
+                </div>
             </div>
         )
     }

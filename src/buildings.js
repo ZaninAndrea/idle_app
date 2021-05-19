@@ -1,4 +1,4 @@
-const COST_EXP_FACTOR = 1.7
+const COST_EXP_FACTOR = 1.25
 
 class Building {
     constructor({
@@ -19,11 +19,34 @@ class Building {
         this.level = level
         this.updatedAt = new Date(updatedAt)
         this.cost = cost
+        this._justFilled = true
     }
 
+    toJSON() {
+        console.log("converted to json")
+        return {
+            name: this.name,
+            baseIncome: this.baseIncome,
+            baseTimer: this.baseTimer,
+            powerUps: this.powerUps.map((powerUp) => ({ ...powerUp })),
+            fill: this.fill,
+            level: this.level,
+            updatedAt: this.updatedAt,
+            cost: this.cost,
+        }
+    }
+
+    justFilled() {
+        if (this._justFilled) {
+            this._justFilled = false
+            return true
+        }
+
+        return false
+    }
     get timer() {
         const multiplier = this.powerUps.reduce(
-            (acc, curr) => (curr.unlocked ? acc + curr.timerMultiplier : acc),
+            (acc, curr) => (curr.unlocked ? acc * curr.timerMultiplier : acc),
             1
         )
         return this.baseTimer * multiplier
@@ -66,6 +89,12 @@ class Building {
         return Math.ceil(this.cost * Math.pow(COST_EXP_FACTOR, this.level - 1))
     }
 
+    unlockPowerUp(powerUpIdx) {
+        this.powerUps[powerUpIdx].unlocked = true
+
+        return this.powerUps[powerUpIdx].cost
+    }
+
     update() {
         let update = { moneyDiff: 0, thumbsUpDiff: 0 }
 
@@ -76,6 +105,10 @@ class Building {
             const cycles = Math.floor(this.fill / this.timer)
             this.fill -= this.timer * cycles
             update.moneyDiff += this.income * cycles
+
+            if (cycles > 0) {
+                this._justFilled = true
+            }
         }
 
         this.updatedAt = new Date()
@@ -94,18 +127,18 @@ const buildings = [
                 incomeMultiplier: 1,
                 cost: 100,
                 levelRequirement: 5,
-                timerMultiplier: 0,
+                timerMultiplier: 1,
                 unlocked: false,
             },
         ],
         fill: 0,
         level: 1,
         updatedAt: new Date(),
-        cost: 25,
+        cost: 1000,
     }),
     new Building({
         name: "Piadineria",
-        baseIncome: 50,
+        baseIncome: 300,
         baseTimer: 30,
         powerUps: [
             {
@@ -113,33 +146,33 @@ const buildings = [
                 incomeMultiplier: 1,
                 cost: 100,
                 levelRequirement: 5,
-                timerMultiplier: 0,
+                timerMultiplier: 1,
                 unlocked: false,
             },
         ],
         fill: 0,
         level: 0,
         updatedAt: new Date(),
-        cost: 250,
+        cost: 15000,
     }),
     new Building({
         name: "Burger Empire",
-        baseIncome: 400,
-        baseTimer: 90,
+        baseIncome: 100000,
+        baseTimer: 600,
         powerUps: [
             {
                 name: "Panini extra-unti",
                 incomeMultiplier: 1,
                 cost: 100,
                 levelRequirement: 5,
-                timerMultiplier: 0,
+                timerMultiplier: 1,
                 unlocked: false,
             },
         ],
         fill: 0,
         level: 0,
         updatedAt: new Date(),
-        cost: 2500,
+        cost: 500000,
     }),
 ]
 
