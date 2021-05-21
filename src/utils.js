@@ -22,7 +22,7 @@ const units = [
     [1e60, "QQ"],
 ]
 
-function displayNumber(n) {
+export function displayNumber(n) {
     n = Math.floor(n)
 
     if (n < 1) return "0"
@@ -36,8 +36,4 @@ function displayNumber(n) {
     let digits = (n / unitToUse[0]).toPrecision(3)
 
     return digits + unitToUse[1]
-}
-
-module.exports = {
-    displayNumber,
 }

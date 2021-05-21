@@ -1,6 +1,6 @@
 const COST_EXP_FACTOR = 1.25
 
-class Building {
+export class Building {
     constructor({
         name,
         baseIncome,
@@ -119,7 +119,7 @@ class Building {
 // Second power up: 100 times, level 18
 // Third power up: 300 times, level 25
 
-const buildings = [
+export const buildings = [
     new Building({
         name: "Kebab place",
         baseIncome: 5,
@@ -345,5 +345,3 @@ const buildings = [
         cost: 25_000_000_000_000,
     }),
 ]
-
-module.exports = { Building, buildings }
