@@ -19,12 +19,10 @@ class App extends CloudComponent {
         if (!this.gameState) return
 
         for (let i = 0; i < this.gameState.buildings.length; i++) {
-            const { moneyDiff, thumbsUpDiff } =
-                this.gameState.buildings[i].update()
+            const moneyDiff = this.gameState.buildings[i].update()
 
             this.gameState.money +=
                 moneyDiff * cities[this.gameState.city].multiplier
-            this.gameState.thumbsUp += thumbsUpDiff
         }
 
         this.setState({

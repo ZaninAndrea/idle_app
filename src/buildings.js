@@ -95,7 +95,7 @@ class Building {
     }
 
     update() {
-        let update = { moneyDiff: 0, thumbsUpDiff: 0 }
+        let moneyDiff = 0
 
         if (this.level > 0) {
             const msDiff = new Date() - this.updatedAt
@@ -103,7 +103,7 @@ class Building {
 
             const cycles = Math.floor(this.fill / this.timer)
             this.fill -= this.timer * cycles
-            update.moneyDiff += this.income * cycles
+            moneyDiff += this.income * cycles
 
             if (cycles > 0) {
                 this._justFilled = true
@@ -111,7 +111,7 @@ class Building {
         }
 
         this.updatedAt = new Date()
-        return update
+        return moneyDiff
     }
 }
 
