@@ -24,7 +24,8 @@ code {
 }
 
 .login {
-    height: 100vh;
+    max-width: 600px;
+    margin: 64px auto;
 }
 .loginBackground {
     position: absolute;
@@ -123,4 +124,8 @@ progress[value].animated::-webkit-progress-value {
 
 .stats {
     margin-bottom: 0 !important;
+}
+
+.signup-link {
+    color: #8a8a8a !important;
 }

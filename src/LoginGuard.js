@@ -1,5 +1,6 @@
 import React from "react"
-import background from "./background.jpg"
+import "./nes.css"
+import { buildings } from "./buildings"
 
 export default class LoginGuard extends React.Component {
     constructor(props) {
@@ -9,6 +10,7 @@ export default class LoginGuard extends React.Component {
         this.state = {
             email: "",
             password: "",
+            login: true,
         }
     }
 
@@ -23,8 +25,33 @@ export default class LoginGuard extends React.Component {
             .then(async (response) => {
                 const res = await response.json()
 
-                if (res.error)
-                    throw new Error("Failed authentication: " + res.error)
+                if (res.error) alert("Failed authentication: " + res.error)
+
+                localStorage.setItem("token", res.token)
+                this.forceUpdate()
+            })
+            .catch((err) => {
+                throw new Error(err)
+            })
+    }
+
+    signup = () => {
+        fetch(
+            `${this.props.server}/user?email=${this.state.email}&password=${this.state.password}`,
+            {
+                method: "POST",
+                headers: {},
+                body: {
+                    city: 0,
+                    money: 0,
+                    buildings: buildings.map((building) => building.toJSON()),
+                },
+            }
+        )
+            .then(async (response) => {
+                const res = await response.json()
+
+                if (res.error) alert("Failed authentication: " + res.error)
 
                 localStorage.setItem("token", res.token)
                 this.forceUpdate()
@@ -36,33 +63,91 @@ export default class LoginGuard extends React.Component {
 
     render() {
         if (localStorage.getItem("token")) return <>{this.props.children}</>
+
+        if (this.state.login)
+            return (
+                <div className="nes-container with-title is-centered login">
+                    <p className="title">Login</p>
+                    <div class="nes-field is-inline">
+                        <label for="inline_field">Email</label>
+                        <input
+                            value={this.state.email}
+                            onChange={(e) =>
+                                this.setState({ email: e.target.value })
+                            }
+                            className="nes-input"
+                        />
+                    </div>
+                    <br />
+                    <div class="nes-field is-inline">
+                        <label for="inline_field">Password</label>
+                        <input
+                            value={this.state.password}
+                            type="password"
+                            onChange={(e) =>
+                                this.setState({ password: e.target.value })
+                            }
+                            onKeyPress={(e) => {
+                                if (e.key === "Enter") this.login()
+                            }}
+                            className="nes-input"
+                        />
+                    </div>
+                    <br />
+                    <button onClick={this.login} className="nes-btn">
+                        Login
+                    </button>
+                    <br />
+                    <br />
+                    <a
+                        className="signup-link"
+                        onClick={() => this.setState({ login: false })}
+                    >
+                        Sign up instead
+                    </a>
+                </div>
+            )
         else
             return (
-                <div className="login">
-                    <img src={background} className="loginBackground" />
-                    <div className="loginBox">
-                        <div className="loginLogoBox" />
-                        <div className="loginDataBox">
-                            <input
-                                value={this.state.email}
-                                onChange={(e) =>
-                                    this.setState({ email: e.target.value })
-                                }
-                            />
-                            <br />
-                            <input
-                                value={this.state.password}
-                                type="password"
-                                onChange={(e) =>
-                                    this.setState({ password: e.target.value })
-                                }
-                                onKeyPress={(e) => {
-                                    if (e.key === "Enter") this.login()
-                                }}
-                            />
-                            <button onClick={this.login}>Login</button>
-                        </div>
+                <div className="nes-container with-title is-centered login">
+                    <p className="title">Sign Up</p>
+                    <div class="nes-field is-inline">
+                        <label for="inline_field">Email</label>
+                        <input
+                            value={this.state.email}
+                            onChange={(e) =>
+                                this.setState({ email: e.target.value })
+                            }
+                            className="nes-input"
+                        />
                     </div>
+                    <br />
+                    <div class="nes-field is-inline">
+                        <label for="inline_field">Password</label>
+                        <input
+                            value={this.state.password}
+                            type="password"
+                            onChange={(e) =>
+                                this.setState({ password: e.target.value })
+                            }
+                            onKeyPress={(e) => {
+                                if (e.key === "Enter") this.login()
+                            }}
+                            className="nes-input"
+                        />
+                    </div>
+                    <br />
+                    <button onClick={this.login} className="nes-btn">
+                        Sign Up
+                    </button>
+                    <br />
+                    <br />
+                    <a
+                        className="signup-link"
+                        onClick={() => this.setState({ login: true })}
+                    >
+                        Login instead
+                    </a>
                 </div>
             )
     }
