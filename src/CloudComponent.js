@@ -110,12 +110,9 @@ export default class CloudComponent extends React.Component {
         const original = clonedeep(this.state.cloud)
         this.oldSetState(update, (...args) => {
             const current = this.state.cloud
-            console.log("original", original)
-            console.log("current", current)
 
             const delta = this.differ.diff(original, current)
             const patch = formatters.jsonpatch.format(delta)
-            console.log(patch)
 
             this.dispatcher.extend(patch)
 

@@ -1,4 +1,5 @@
 import React from "react"
+import { displayNumber } from "./utils"
 
 export default function BuildingDisplay({
     building,
@@ -26,7 +27,7 @@ export default function BuildingDisplay({
                         }
                         disabled={availableLevels === 0}
                     >
-                        1UP for {building.upgradeCost} coins
+                        1UP for {displayNumber(building.upgradeCost)} coins
                     </button>
                 </div>
                 <progress
@@ -72,7 +73,7 @@ export default function BuildingDisplay({
                                 }
                                 disabled={money < powerUp.cost}
                             >
-                                Unlock for {powerUp.cost} coins
+                                Unlock for {displayNumber(powerUp.cost)} coins
                             </button>
                         )}
                     </div>
@@ -95,7 +96,8 @@ export default function BuildingDisplay({
                     }
                     disabled={availableLevels === 0}
                 >
-                    Unlock building for {building.upgradeCost} coins
+                    Unlock building for {displayNumber(building.upgradeCost)}{" "}
+                    coins
                 </button>
             </div>
         )

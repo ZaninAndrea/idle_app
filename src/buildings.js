@@ -23,7 +23,6 @@ class Building {
     }
 
     toJSON() {
-        console.log("converted to json")
         return {
             name: this.name,
             baseIncome: this.baseIncome,

@@ -5,6 +5,7 @@ import LoginGuard from "./LoginGuard"
 import { Building, buildings } from "./buildings"
 import cities from "./cities"
 import BuildingDisplay from "./BuildingDisplay"
+import { displayNumber } from "./utils"
 
 class App extends CloudComponent {
     constructor(props) {
@@ -144,7 +145,7 @@ class App extends CloudComponent {
                 <div className="resources">
                     <div className="resources-money">
                         <span className="nes-text is-warning">
-                            Coins: {Math.floor(this.state.game.money)}
+                            Coins: {displayNumber(this.state.game.money)}
                         </span>
                     </div>
                     <div className="resources-city">
