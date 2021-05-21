@@ -1,22 +1,27 @@
 module.exports = [
     {
-        name: "Dro Località Lago",
+        name: "Berlin",
         multiplier: 1,
         cost: 0,
     },
     {
-        name: "Riva",
+        name: "Milan",
         multiplier: 5,
-        cost: 1_000_000,
+        cost: 50_000_000_000,
     },
     {
-        name: "Trento",
+        name: "Los Angeles",
         multiplier: 50,
-        cost: 1_000_000_000_000,
+        cost: 25_000_000_000_000,
     },
     {
-        name: "Roma",
+        name: "Rome",
         multiplier: 250,
-        cost: 1_000_000_000_000_000,
+        cost: 500_000_000_000_000_000,
+    },
+    {
+        name: "Paris",
+        multiplier: 1500,
+        cost: 10_000_000_000_000_000_000_000,
     },
 ]

@@ -115,18 +115,35 @@ class Building {
     }
 }
 
+// First power up: 20 times more expensive than building, level 10
+// Second power up: 100 times, level 18
+// Third power up: 300 times, level 25
+
 const buildings = [
     new Building({
-        name: "Kebabbaro",
+        name: "Kebab place",
         baseIncome: 5,
         baseTimer: 5,
         powerUps: [
             {
-                name: "Aperto 24/7",
+                name: "Open 24/7",
                 incomeMultiplier: 1,
-                cost: 100,
-                levelRequirement: 5,
+                cost: 20_000,
                 timerMultiplier: 1,
+                unlocked: false,
+            },
+            {
+                name: "Hot Sauce",
+                incomeMultiplier: 0,
+                cost: 100_000,
+                timerMultiplier: 0.5,
+                unlocked: false,
+            },
+            {
+                name: "Wagyu Kebab",
+                incomeMultiplier: 1.5,
+                cost: 300_000,
+                timerMultiplier: 0.7,
                 unlocked: false,
             },
         ],
@@ -136,16 +153,29 @@ const buildings = [
         cost: 1000,
     }),
     new Building({
-        name: "Piadineria",
-        baseIncome: 300,
+        name: "Café",
+        baseIncome: 450,
         baseTimer: 30,
         powerUps: [
             {
-                name: "Piadine alla Nutella",
+                name: "Frappuccino",
                 incomeMultiplier: 1,
-                cost: 100,
-                levelRequirement: 5,
+                cost: 300_000,
                 timerMultiplier: 1,
+                unlocked: false,
+            },
+            {
+                name: "Bubble tea",
+                incomeMultiplier: 0,
+                cost: 1_500_000,
+                timerMultiplier: 0.5,
+                unlocked: false,
+            },
+            {
+                name: "Espresso",
+                incomeMultiplier: 1.5,
+                cost: 5_000_000,
+                timerMultiplier: 0.7,
                 unlocked: false,
             },
         ],
@@ -160,11 +190,24 @@ const buildings = [
         baseTimer: 600,
         powerUps: [
             {
-                name: "Panini extra-unti",
+                name: "Plant-based patties",
                 incomeMultiplier: 1,
-                cost: 100,
-                levelRequirement: 5,
+                cost: 10000000,
                 timerMultiplier: 1,
+                unlocked: false,
+            },
+            {
+                name: "Drive-through",
+                incomeMultiplier: 0,
+                cost: 50000000,
+                timerMultiplier: 0.5,
+                unlocked: false,
+            },
+            {
+                name: "Cheesy fries",
+                incomeMultiplier: 1.5,
+                cost: 150_000_000,
+                timerMultiplier: 0.7,
                 unlocked: false,
             },
         ],
@@ -172,6 +215,134 @@ const buildings = [
         level: 0,
         updatedAt: new Date(),
         cost: 500000,
+    }),
+    new Building({
+        name: "Pizzeria",
+        baseIncome: 7_000_000,
+        baseTimer: 900,
+        powerUps: [
+            {
+                name: "Double mozzarella",
+                incomeMultiplier: 1,
+                cost: 500_000_000,
+                timerMultiplier: 1,
+                unlocked: false,
+            },
+            {
+                name: "Take away",
+                incomeMultiplier: 0,
+                cost: 2_500_000_000,
+                timerMultiplier: 0.5,
+                unlocked: false,
+            },
+            {
+                name: "Italian staff",
+                incomeMultiplier: 1.5,
+                cost: 7_500_000_000,
+                timerMultiplier: 0.7,
+                unlocked: false,
+            },
+        ],
+        fill: 0,
+        level: 0,
+        updatedAt: new Date(),
+        cost: 25_000_000,
+    }),
+    new Building({
+        name: "Restaurant",
+        baseIncome: 400_000_000,
+        baseTimer: 1800,
+        powerUps: [
+            {
+                name: "Kids menu",
+                incomeMultiplier: 1,
+                cost: 20_000_000_000,
+                timerMultiplier: 1,
+                unlocked: false,
+            },
+            {
+                name: "Porcelain dinnerware",
+                incomeMultiplier: 0,
+                cost: 100_000_000_000,
+                timerMultiplier: 0.5,
+                unlocked: false,
+            },
+            {
+                name: "Michelin star",
+                incomeMultiplier: 1.5,
+                cost: 300_000_000_000,
+                timerMultiplier: 0.7,
+                unlocked: false,
+            },
+        ],
+        fill: 0,
+        level: 0,
+        updatedAt: new Date(),
+        cost: 1_000_000_000,
+    }),
+    new Building({
+        name: "Sushi Place",
+        baseIncome: 75_000_000_000, // 20_000_000 per s
+        baseTimer: 3600,
+        powerUps: [
+            {
+                name: "All you can eat",
+                incomeMultiplier: 1,
+                cost: 2_000_000_000_000,
+                timerMultiplier: 1,
+                unlocked: false,
+            },
+            {
+                name: "Caviar sushi",
+                incomeMultiplier: 0,
+                cost: 10_000_000_000_000,
+                timerMultiplier: 0.5,
+                unlocked: false,
+            },
+            {
+                name: "Golden chopsticks",
+                incomeMultiplier: 1.5,
+                cost: 30_000_000_000_000,
+                timerMultiplier: 0.7,
+                unlocked: false,
+            },
+        ],
+        fill: 0,
+        level: 0,
+        updatedAt: new Date(),
+        cost: 100_000_000_000,
+    }),
+    new Building({
+        name: "Banquet Hall",
+        baseIncome: 36_000_000_000_000, // 5_000_000_000 per s
+        baseTimer: 7200,
+        powerUps: [
+            {
+                name: "Mariachi band",
+                incomeMultiplier: 1,
+                cost: 500_000_000_000_000,
+                timerMultiplier: 1,
+                unlocked: false,
+            },
+            {
+                name: "Diamond chandelier",
+                incomeMultiplier: 0,
+                cost: 2_500_000_000_000_000,
+                timerMultiplier: 0.5,
+                unlocked: false,
+            },
+            {
+                name: "Fireworks",
+                incomeMultiplier: 1.5,
+                cost: 7_500_000_000_000_000,
+                timerMultiplier: 0.7,
+                unlocked: false,
+            },
+        ],
+        fill: 0,
+        level: 0,
+        updatedAt: new Date(),
+        cost: 25_000_000_000_000,
     }),
 ]
 

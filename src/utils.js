@@ -33,7 +33,8 @@ function displayNumber(n) {
         else break
     }
 
-    const digits = (n / unitToUse[0]).toPrecision(3)
+    let digits = (n / unitToUse[0]).toPrecision(3)
+
     return digits + unitToUse[1]
 }
 

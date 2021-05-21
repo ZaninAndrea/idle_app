@@ -111,7 +111,6 @@ class App extends CloudComponent {
                 cloud: {
                     city: 0,
                     money: 0,
-                    thumbsUp: 0,
                     buildings: buildings.map((building) => building.toJSON()),
                 },
             })

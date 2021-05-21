@@ -17,7 +17,12 @@ export default function BuildingDisplay({
             >
                 <p className="title">{building.name}</p>
                 <div className="level">
-                    <p className="level-tag">Level: {building.level} </p>
+                    <div className="stats">
+                        <p className="level-tag">Amount: {building.level} </p>
+                        <p className="revenue-tag">
+                            Revenue: {displayNumber(building.income)}
+                        </p>
+                    </div>
                     <button
                         onClick={upgradeBuilding}
                         class={
@@ -47,7 +52,8 @@ export default function BuildingDisplay({
                             {powerUp.incomeMultiplier ? (
                                 <span className="nes-text is-warning">
                                     {" "}
-                                    +{powerUp.incomeMultiplier * 100}
+                                    +
+                                    {Math.round(powerUp.incomeMultiplier * 100)}
                                     %&nbsp;coins
                                 </span>
                             ) : (
@@ -56,7 +62,10 @@ export default function BuildingDisplay({
                             {powerUp.timerMultiplier != 1 ? (
                                 <span className="nes-text is-primary">
                                     {" "}
-                                    -{powerUp.timerMultiplier * 100}
+                                    -
+                                    {Math.round(
+                                        (1 - powerUp.timerMultiplier) * 100
+                                    )}
                                     %&nbsp;service time
                                 </span>
                             ) : (

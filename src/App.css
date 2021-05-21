@@ -89,7 +89,7 @@ progress {
 }
 
 .level-tag,
-.upgrade-tag {
+.revenue-tag {
     margin-bottom: 0;
     text-align: left;
 }
@@ -110,7 +110,7 @@ progress {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
 }
 progress[value].animated::-webkit-progress-value {
     transition: width 0.2s;
@@ -119,4 +119,8 @@ progress[value].animated::-webkit-progress-value {
 .prestige {
     width: 100%;
     text-align: center;
+}
+
+.stats {
+    margin-bottom: 0 !important;
 }
